@@ -22,8 +22,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUSer(User user) {
-        user.setProfile("https://static.vecteezy.com/system/resources/previews/018/765/757/original/user-profile-icon-in-flat-style-member-avatar-illustration-on-isolated-background-human-permission-sign-business-concept-vector.jpg");
-
         return this.userRepository.save(user);
     }
 
@@ -44,7 +42,7 @@ public class UserServiceImpl implements UserService {
         user2.setProfile(user.getProfile());
         user2.setEmailVerified(user.isEmailVerified());
         user2.setPhoneVerified(user.isPhoneVerified());
-        user2.setEnable(user.isEnable());
+        user2.setEnabled(user.isEnabled());
         user2.setProvider(user.getProvider());
         user2.setProviderUserId(user.getProviderUserId());
 
@@ -60,17 +58,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isUserExist(Long id) {
-        return this.userRepository.findById(id).orElse(null) != null ? true : false;
+        return this.userRepository.findById(id).orElse(null) != null;
     }
 
     @Override
     public boolean isUserExistByEmail(String email) {
-        return this.userRepository.findByEmail(email).orElse(null) != null ? true : false;
+        return this.userRepository.findByEmail(email).orElse(null) != null;
     }
 
     @Override
     public Optional<List<User>> getAllUser() {
         List<User> users = this.userRepository.findAll();
+        
         return users.isEmpty() ? Optional.empty() : Optional.of(users);
     }
 }

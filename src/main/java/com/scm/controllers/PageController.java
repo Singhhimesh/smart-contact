@@ -1,6 +1,10 @@
 package com.scm.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,11 +21,15 @@ import com.scm.services.servicesImplementation.UserServiceImpl;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
+import  com.scm.helpers.AppConstants;
 
 @Controller
 public class PageController {
     @Autowired
     private UserServiceImpl userServiceImpl;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     
     @GetMapping
     public String home() {
@@ -38,7 +46,6 @@ public class PageController {
         return "pages/service";
     }
 
-    
     @GetMapping("/contact")
     public String contactPage() {
         return "pages/contact";
@@ -70,8 +77,9 @@ public class PageController {
 
         user.setName(userForm.getName());
         user.setEmail(userForm.getEmail());
-        user.setPassword(userForm.getPassword());
+        user.setPassword(passwordEncoder.encode(userForm.getPassword()));
         user.setAbout(userForm.getAbout());
+        user.setRoleList(List.of(AppConstants.ROLE_USER));
         user.setPhone(userForm.getPhone());
         user.setProfile("https://static.vecteezy.com/system/resources/previews/018/765/757/original/user-profile-icon-in-flat-style-member-avatar-illustration-on-isolated-background-human-permission-sign-business-concept-vector.jpg");
 
