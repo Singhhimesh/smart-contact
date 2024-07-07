@@ -3,7 +3,6 @@ package com.scm.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,9 +25,6 @@ public class PageController {
     @Autowired
     private UserServiceImpl userServiceImpl;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    
     @GetMapping
     public String home() {
         return "pages/home";
@@ -75,7 +71,7 @@ public class PageController {
 
         user.setName(userForm.getName());
         user.setEmail(userForm.getEmail());
-        user.setPassword(passwordEncoder.encode(userForm.getPassword()));
+        user.setPassword(userForm.getPassword());
         user.setAbout(userForm.getAbout());
         user.setRoleList(List.of(AppConstants.ROLE_USER));
         user.setPhoneNumber(userForm.getPhone());

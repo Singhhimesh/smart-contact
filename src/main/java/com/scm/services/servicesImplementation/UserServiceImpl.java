@@ -7,7 +7,6 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.scm.entities.User;
@@ -22,28 +21,19 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepo;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public User saveUser(User user) {
-        // user id : have to generate
         String userId = UUID.randomUUID().toString();
+
         user.setUserId(userId);
-        // password encode
-        // user.setPassword(userId);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        // set the user role
-
+        user.setPassword(user.getPassword());
         user.setRoleList(List.of(AppConstants.ROLE_USER));
 
         logger.info(user.getProvider().toString());
 
         return userRepo.save(user);
-
     }
 
     @Override
@@ -68,10 +58,10 @@ public class UserServiceImpl implements UserService {
         user2.setPhoneVerified(user.isPhoneVerified());
         user2.setProvider(user.getProvider());
         user2.setProviderUserId(user.getProviderUserId());
-        // save the user in database
-        User save = userRepo.save(user2);
-        return Optional.ofNullable(save);
 
+        User save = userRepo.save(user2);
+
+        return Optional.ofNullable(save);
     }
 
     @Override
@@ -79,7 +69,6 @@ public class UserServiceImpl implements UserService {
         User user2 = userRepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         userRepo.delete(user2);
-
     }
 
     @Override
