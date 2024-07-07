@@ -3,6 +3,7 @@ package com.scm.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import com.scm.helpers.Message;
 import com.scm.services.servicesImplementation.UserServiceImpl;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 
 @Controller
@@ -59,7 +61,11 @@ public class PageController {
     }
 
     @PostMapping("/register")
-    public String handleRegister(@ModelAttribute UserForm userForm, HttpSession httpSession) {
+    public String handleRegister(@Valid @ModelAttribute UserForm userForm, BindingResult bindingResult, HttpSession httpSession) {
+        if (bindingResult.hasErrors()) {
+            return "sessions/register";   
+        }
+
         User user = new User();
 
         user.setName(userForm.getName());

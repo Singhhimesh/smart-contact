@@ -24,21 +24,37 @@
                                 Name</label>
                             <input type="text" id="name" th:field="*{name}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Enter your name" required />
+                                placeholder="Enter your name"
+                                th:classappend="${#fields.hasErrors('name')} ? 'border-red-600' : ''" />
+
+
+                            <td th:if="${#fields.hasErrors('name')}">
+                                <span class="font-normal text-sm text-red-600" th:errors="*{name}"></span>
+                            </td>
                         </div>
                         <div class="mb-5">
                             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Email</label>
                             <input type="email" id="email" th:field="*{email}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                required placeholder="example@mail.com" />
+                                placeholder="example@mail.com"
+                                th:classappend="${#fields.hasErrors('email')} ? 'border-red-600' : ''" />
+
+                            <td th:if="${#fields.hasErrors('email')}">
+                                <span class="font-normal text-sm text-red-600" th:errors="*{email}"></span>
+                            </td>
                         </div>
                         <div class="mb-5">
                             <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Phone</label>
                             <input type="text" id="phone" th:field="*{phone}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                required placeholder="Enter your phone number" />
+                                placeholder="Enter your phone number"
+                                th:classappend="${#fields.hasErrors('phone')} ? 'border-red-600' : ''" />
+
+                            <td th:if="${#fields.hasErrors('phone')}">
+                                <span class="font-normal text-sm text-red-600" th:errors="*{phone}"></span>
+                            </td>
                         </div>
 
                         <div class="mb-5">
@@ -46,14 +62,24 @@
                                 Password</label>
                             <input type="password" id="password" th:field="*{password}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                required placeholder="Enter your password" />
+                                placeholder="Enter your password"
+                                th:classappend="${#fields.hasErrors('password')} ? 'border-red-600' : ''" />
+
+
+                            <td th:if="${#fields.hasErrors('password')}">
+                                <span class="font-normal text-sm text-red-600" th:errors="*{password}"></span>
+                            </td>
                         </div>
                         <div class="mb-5">
                             <label for="message"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">About</label>
                             <textarea id="message" rows="4" th:field="*{about}"
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Write your thoughts here..."></textarea>
+                                placeholder="Write your thoughts here..."
+                                th:classappend="${#fields.hasErrors('about')} ? 'border-red-600' : ''"></textarea>
+                            <td th:if="${#fields.hasErrors('about')}">
+                                <span class="font-normal text-sm text-red-600" th:errors="*{about}"></span>
+                            </td>
 
                         </div>
 
