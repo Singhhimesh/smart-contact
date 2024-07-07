@@ -18,8 +18,9 @@ public class SecurityCustomUserDetails implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        
         Optional<User> user = this.userRepository.findByEmail(username);
+
+        System.out.println("user:" + user.get());
         
         return user.orElseThrow(() -> new UsernameNotFoundException("Invalid user or not found."));
     }

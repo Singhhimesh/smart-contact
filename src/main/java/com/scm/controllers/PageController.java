@@ -3,7 +3,6 @@ package com.scm.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,13 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.scm.entities.User;
 import com.scm.enums.MesssageEnum;
 import com.scm.forms.UserForm;
+import com.scm.helpers.AppConstants;
 import com.scm.helpers.Message;
 import com.scm.services.servicesImplementation.UserServiceImpl;
 
-import jakarta.servlet.http.HttpSession;
+import  jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-
-import  com.scm.helpers.AppConstants;
 
 @Controller
 public class PageController {
@@ -80,10 +78,10 @@ public class PageController {
         user.setPassword(passwordEncoder.encode(userForm.getPassword()));
         user.setAbout(userForm.getAbout());
         user.setRoleList(List.of(AppConstants.ROLE_USER));
-        user.setPhone(userForm.getPhone());
-        user.setProfile("https://static.vecteezy.com/system/resources/previews/018/765/757/original/user-profile-icon-in-flat-style-member-avatar-illustration-on-isolated-background-human-permission-sign-business-concept-vector.jpg");
+        user.setPhoneNumber(userForm.getPhone());
+        user.setProfilePic("https://static.vecteezy.com/system/resources/previews/018/765/757/original/user-profile-icon-in-flat-style-member-avatar-illustration-on-isolated-background-human-permission-sign-business-concept-vector.jpg");
 
-        this.userServiceImpl.saveUSer(user);
+        this.userServiceImpl.saveUser(user);
 
         Message message = Message.builder().message("User saved successfully").type(MesssageEnum.DANGER).build();
 

@@ -6,17 +6,20 @@ import java.util.Optional;
 import com.scm.entities.User;
 
 public interface UserService {
-    public User saveUSer(User user);
 
-    public Optional<User> getUserById(Long id);
+    User saveUser(User user);
 
-    public Optional<User> updateUser(User user, Long id);
+    Optional<User> getUserById(String id);
 
-    public void deleteUser(Long id);
+    Optional<User> updateUser(User user);
 
-    public boolean isUserExist(Long id);
+    void deleteUser(String id);
 
-    public boolean isUserExistByEmail(String email);
+    boolean isUserExist(String userId);
 
-    public Optional<List<User>> getAllUser();
+    boolean isUserExistByEmail(String email);
+
+    List<User> getAllUsers();
+
+    User getUserByEmail(String email);
 }
