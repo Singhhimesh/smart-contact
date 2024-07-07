@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="parent(content, title, script)" class="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- flowbite css -->
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
+
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- tailwind css -->
+    <link rel="stylesheet" th:href="@{'/css/output.css'}">
+    <title th:replace="${title}"></title>
+</head>
+
+<body class="dark:bg-gray-900 bg-gray-100 dark:text-white">
+    <!-- common header -->
+    <th:block th:replace="~{partials/navbar :: navbar}"></th:block>
+
+    <!-- main content -->
+    <div class="p-4 h-screen w-full">
+        <th:block th:replace="~{includes/message :: message}"></th:block>
+
+        <div th:replace="${content}"></div>
+    </div>
+
+    <!-- common footer -->
+    <th:block th:replace="~{partials/footer :: footer}"></th:block>
+
+    <!-- flowbite javascript -->
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+    <script th:src="@{'/js/app.js'}"></script>
+    <th:block th:replace="${script}"></th:block>
+</body>
+
+</html>
