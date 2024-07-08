@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.scm.services.impl.SecurityCustomUserDetailsService;
 
@@ -21,6 +22,9 @@ public class SecurityConfiguration {
 
     @Autowired
     private SecurityCustomUserDetailsService userDetailsService;
+
+    @Autowired
+    private RedirectAuthenticatedUserFilter redirectAuthenticatedUserFilter;
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -32,6 +36,8 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.addFilterBefore(redirectAuthenticatedUserFilter, UsernamePasswordAuthenticationFilter.class);
+
         httpSecurity.authorizeHttpRequests(authorize -> {
             authorize.requestMatchers("/users/**").authenticated();
             authorize.requestMatchers("/login", "/register").not().authenticated();
