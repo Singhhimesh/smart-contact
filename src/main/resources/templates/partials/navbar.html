@@ -13,7 +13,9 @@
                 class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 <i class="fa-solid fa-circle-half-stroke"></i> <span id="theme-toggler">Light</span>
             </button> -->
-            <a th:href="@{'/login'}"
+            <a 
+                sec:authorize="!isAuthenticated()"
+                th:href="@{'/login'}"
                 class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Login
             </a>
