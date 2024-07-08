@@ -15,7 +15,7 @@ import com.scm.enums.MesssageEnum;
 import com.scm.forms.UserForm;
 import com.scm.helpers.AppConstants;
 import com.scm.helpers.Message;
-import com.scm.services.servicesImplementation.UserServiceImpl;
+import com.scm.services.impl.UserServiceImpl;
 
 import  jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;

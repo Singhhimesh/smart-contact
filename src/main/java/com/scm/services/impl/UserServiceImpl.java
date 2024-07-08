@@ -1,4 +1,4 @@
-package com.scm.services.servicesImplementation;
+package com.scm.services.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.scm.entities.User;
@@ -21,6 +22,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepo;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
@@ -28,7 +32,9 @@ public class UserServiceImpl implements UserService {
         String userId = UUID.randomUUID().toString();
 
         user.setUserId(userId);
-        user.setPassword(user.getPassword());
+        
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         user.setRoleList(List.of(AppConstants.ROLE_USER));
 
         logger.info(user.getProvider().toString());
@@ -79,7 +85,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isUserExistByEmail(String email) {
-        User user = userRepo.findByEmail(email).orElse(null);
+        User user = userRepo.findByEmail(email);
+        
         return user != null ? true : false;
     }
 
@@ -90,8 +97,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByEmail(String email) {
-        return userRepo.findByEmail(email).orElse(null);
-
+        return userRepo.findByEmail(email);
     }
 
 }
